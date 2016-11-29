@@ -189,6 +189,10 @@ getMasterMinSlave() {
 	printf '%s\n' "${clusterNodes[@]}" | awk -F"|" '$3~/slave/{slave[$4]++} $3~/master/{master[$1]++}END{min=-1;for (m in master){if(min<0){min=slave[m]}; min=(min<slave[m]?min:slave[m]);} print min<0?0:min}'
 }
 
+getMasterNodes() {
+	printf '%s\n' "${clusterNodes[@]}" | awk -F"|" '$3~/master/ && $3!~/fail/{sub(/:.*/,"",$2);master[$2]++}END{max=0; for(m in master){max=(max<master[m]?master[m]:max)} print max}'
+}
+
 [ -z "${REDISURL}" ] && exit 1
 
 [ ! -d "${CONFDIR}" ] && mkdir -p "${CONFDIR}"
@@ -264,6 +268,9 @@ case "${1}" in
 		;;
 	"masterminslave")
 		getMasterMinSlave
+	 	;;
+	"masternodes")
+		getMasterNodes
 		;;
 	*)
 		zbx
