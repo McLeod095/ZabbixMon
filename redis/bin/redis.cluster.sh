@@ -186,7 +186,7 @@ getNotConnectedState() {
 }
 
 getMasterMinSlave() {
-	printf '%s\n' "${clusterNodes[@]}" | awk -F"|" '$3~/slave/&&$3!~/fail/{slave[$4]++} $3~/master/&&$3!~/fail/{master[$1]++}END{min=-1;for (m in master){if(min<0){min=slave[m]}; min=(min<slave[m]?min:slave[m]);} print min<0?0:min}'
+	printf '%s\n' "${clusterNodes[@]}" | awk -F"|" '$3~/slave/&&$3!~/fail/{slave[$4]++} $3~/master/&&$3!~/fail/{master[$1]++}END{min=0;for(s in slave){min=(min<slave[s]?slave[s]:min)};for (m in master){ if(slave[m]!=""){min=(min<slave[m]?min:slave[m])}} print min}'
 }
 
 getMasterNodes() {
