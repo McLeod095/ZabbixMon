@@ -3,7 +3,9 @@
 CONFDIR="/tmp/zabbix"
 CACHETIME="60"
 MD5SUM=$(which md5sum 2>/dev/null)
-REDISURL=${2:-}
+REDISHOST=${2:-}
+REDISPORT=${3:-}
+REDISURL="${REDISHOST}:${REDISPORT}"
 REDISHOSTS=()
 flagCluster=1
 DEBUG=0
@@ -56,7 +58,8 @@ checkForCluster() {
 	local CMD
 	local iscluster
 	debug "checkForCluster $REDISHOST $REDISPORT"
-	iscluster=$(docker exec $(docker ps -qlf {name=redis*}) redis-cli -h ${REDISHOST} -p ${REDISPORT} cluster info | grep -c 'ERR')
+	#iscluster=$(docker exec $(docker ps -qlf {name=redis*}) redis-cli -h ${REDISHOST} -p ${REDISPORT} cluster info | grep -c 'ERR')
+	iscluster=$(redis-cli -h ${REDISHOST} -p ${REDISPORT} cluster info | grep -c 'ERR')
 	debug "iscluster = ${iscluster}"
 
 	if [ "${iscluster}" -eq "0" ];then
@@ -71,7 +74,8 @@ getClusterNodes() {
 	local line
 	if isCluster; then
 		unset REDISHOSTS
-		mapfile -t clusterNodes < <(docker exec $(docker ps -qlf {name=redis*}) redis-cli -h "${REDISHOST}" -p "${REDISPORT}" cluster nodes 2>/dev/null| tr " " "|")
+		#mapfile -t clusterNodes < <(docker exec $(docker ps -qlf {name=redis*}) redis-cli -h "${REDISHOST}" -p "${REDISPORT}" cluster nodes 2>/dev/null| tr " " "|")
+		mapfile -t clusterNodes < <(redis-cli -h "${REDISHOST}" -p "${REDISPORT}" cluster nodes 2>/dev/null| tr " " "|")
 		for line in ${clusterNodes[@]}; do 
 			line=$(printf "${line}" | cut -d"|" -f2)
 			local h=${line%:*}
@@ -88,7 +92,8 @@ getClusterInfo() {
 	debug "getClusterInfo ${param}"
 	[ -z "${param}" ] && return 1
 	if isCluster; then
-		local CLUSTERINFO=$(docker exec $(docker ps -qlf {name=redis*}) redis-cli -h "${REDISHOST}" -p "${REDISPORT}" cluster info 2>/dev/null | grep -oP "${param}:\K.*")
+		#local CLUSTERINFO=$(docker exec $(docker ps -qlf {name=redis*}) redis-cli -h "${REDISHOST}" -p "${REDISPORT}" cluster info 2>/dev/null | grep -oP "${param}:\K.*")
+		local CLUSTERINFO=$(redis-cli -h "${REDISHOST}" -p "${REDISPORT}" cluster info 2>/dev/null | grep -oP "${param}:\K.*")
 		debug "getClusterInfo: ${CLUSTERINFO}"
 		[ -n "${CLUSTERINFO}" ] && echo "${CLUSTERINFO}" || zbx
 	fi
@@ -106,7 +111,8 @@ doPing() {
 	local redisport="${2}"
 	debug "doPing $redishost $redisport"
 	local ping
-	ping=$(docker exec $(docker ps -qlf {name=redis*}) redis-cli -h "${redishost}" -p "${redisport}" ping 2>/dev/null | grep -c 'PONG')
+	#ping=$(docker exec $(docker ps -qlf {name=redis*}) redis-cli -h "${redishost}" -p "${redisport}" ping 2>/dev/null | grep -c 'PONG')
+	ping=$(redis-cli -h "${redishost}" -p "${redisport}" ping 2>/dev/null | grep -c 'PONG')
 	if [ "${ping}" == "1" ]; then
 		return 0
 	fi
@@ -179,6 +185,10 @@ getNotConnectedState() {
 	printf '%s\n' "${clusterNodes[@]}" | awk -F"|" 'BEGIN{c=0}$8=/disconnected/{c++}END{print c}'
 }
 
+getMasterMinSlave() {
+	printf '%s\n' "${clusterNodes[@]}" | awk -F"|" '$3~/slave/{slave[$4]++} $3~/master/{master[$1]++}END{min=-1;for (m in master){if(min<0){min=slave[m]}; min=(min<slave[m]?min:slave[m]);} print min<0?0:min}'
+}
+
 [ -z "${REDISURL}" ] && exit 1
 
 [ ! -d "${CONFDIR}" ] && mkdir -p "${CONFDIR}"
@@ -200,8 +210,10 @@ if ! checkConfig; then
 fi
 
 if getPing; then
+	ping=1
 	checkForCluster
 	getClusterNodes
+	saveConfig
 else
 	printf "0"
 	exit 0
@@ -249,6 +261,9 @@ case "${1}" in
 		;;
 	"notconnected")
 		getNotConnectedState
+		;;
+	"masterminslave")
+		getMasterMinSlave
 		;;
 	*)
 		zbx
