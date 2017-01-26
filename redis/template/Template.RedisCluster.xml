@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>2.0</version>
-    <date>2016-11-29T15:16:44Z</date>
+    <date>2017-01-26T12:15:04Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -29,7 +29,7 @@
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>rediscluster[masternodes,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}]</key>
+                    <key>rediscluster[masternodes,{HOST.CONN},{$REDISCLUSTERPORT}]</key>
                     <delay>5</delay>
                     <history>90</history>
                     <trends>365</trends>
@@ -72,7 +72,7 @@
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>rediscluster[masterpfail,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}]</key>
+                    <key>rediscluster[masterpfail,{HOST.CONN},{$REDISCLUSTERPORT}]</key>
                     <delay>5</delay>
                     <history>90</history>
                     <trends>365</trends>
@@ -115,7 +115,7 @@
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>rediscluster[masterminslave,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}]</key>
+                    <key>rediscluster[masterminslave,{HOST.CONN},{$REDISCLUSTERPORT}]</key>
                     <delay>5</delay>
                     <history>90</history>
                     <trends>365</trends>
@@ -158,7 +158,7 @@
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>rediscluster[masterfail,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}]</key>
+                    <key>rediscluster[masterfail,{HOST.CONN},{$REDISCLUSTERPORT}]</key>
                     <delay>5</delay>
                     <history>90</history>
                     <trends>365</trends>
@@ -201,7 +201,7 @@
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>rediscluster[master,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}]</key>
+                    <key>rediscluster[master,{HOST.CONN},{$REDISCLUSTERPORT}]</key>
                     <delay>5</delay>
                     <history>90</history>
                     <trends>365</trends>
@@ -244,7 +244,7 @@
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>rediscluster[notconnected,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}]</key>
+                    <key>rediscluster[notconnected,{HOST.CONN},{$REDISCLUSTERPORT}]</key>
                     <delay>5</delay>
                     <history>90</history>
                     <trends>365</trends>
@@ -287,7 +287,7 @@
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>rediscluster[pfail,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}]</key>
+                    <key>rediscluster[pfail,{HOST.CONN},{$REDISCLUSTERPORT}]</key>
                     <delay>5</delay>
                     <history>90</history>
                     <trends>365</trends>
@@ -330,7 +330,7 @@
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>rediscluster[slavewithoutmaster,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}]</key>
+                    <key>rediscluster[slavewithoutmaster,{HOST.CONN},{$REDISCLUSTERPORT}]</key>
                     <delay>5</delay>
                     <history>90</history>
                     <trends>365</trends>
@@ -373,7 +373,7 @@
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>rediscluster[slavepfail,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}]</key>
+                    <key>rediscluster[slavepfail,{HOST.CONN},{$REDISCLUSTERPORT}]</key>
                     <delay>5</delay>
                     <history>90</history>
                     <trends>365</trends>
@@ -416,7 +416,7 @@
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>rediscluster[slavefail,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}]</key>
+                    <key>rediscluster[slavefail,{HOST.CONN},{$REDISCLUSTERPORT}]</key>
                     <delay>5</delay>
                     <history>90</history>
                     <trends>365</trends>
@@ -459,7 +459,7 @@
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>rediscluster[slave,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}]</key>
+                    <key>rediscluster[slave,{HOST.CONN},{$REDISCLUSTERPORT}]</key>
                     <delay>5</delay>
                     <history>90</history>
                     <trends>365</trends>
@@ -502,7 +502,7 @@
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>rediscluster[cluster_current_epoch,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}]</key>
+                    <key>rediscluster[cluster_current_epoch,{HOST.CONN},{$REDISCLUSTERPORT}]</key>
                     <delay>5</delay>
                     <history>90</history>
                     <trends>365</trends>
@@ -545,7 +545,7 @@
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>rediscluster[fail,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}]</key>
+                    <key>rediscluster[fail,{HOST.CONN},{$REDISCLUSTERPORT}]</key>
                     <delay>5</delay>
                     <history>90</history>
                     <trends>365</trends>
@@ -588,7 +588,7 @@
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>rediscluster[cluster_slots_assigned,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}]</key>
+                    <key>rediscluster[cluster_slots_assigned,{HOST.CONN},{$REDISCLUSTERPORT}]</key>
                     <delay>5</delay>
                     <history>90</history>
                     <trends>365</trends>
@@ -631,7 +631,7 @@
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>rediscluster[cluster_size,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}]</key>
+                    <key>rediscluster[cluster_size,{HOST.CONN},{$REDISCLUSTERPORT}]</key>
                     <delay>5</delay>
                     <history>90</history>
                     <trends>365</trends>
@@ -674,7 +674,7 @@
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>rediscluster[cluster_my_epoch,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}]</key>
+                    <key>rediscluster[cluster_my_epoch,{HOST.CONN},{$REDISCLUSTERPORT}]</key>
                     <delay>5</delay>
                     <history>90</history>
                     <trends>365</trends>
@@ -717,7 +717,7 @@
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>rediscluster[cluster_known_nodes,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}]</key>
+                    <key>rediscluster[cluster_known_nodes,{HOST.CONN},{$REDISCLUSTERPORT}]</key>
                     <delay>5</delay>
                     <history>90</history>
                     <trends>365</trends>
@@ -760,7 +760,7 @@
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>rediscluster[cluster_slots_fail,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}]</key>
+                    <key>rediscluster[cluster_slots_fail,{HOST.CONN},{$REDISCLUSTERPORT}]</key>
                     <delay>5</delay>
                     <history>90</history>
                     <trends>365</trends>
@@ -803,7 +803,7 @@
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>rediscluster[cluster_slots_ok,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}]</key>
+                    <key>rediscluster[cluster_slots_ok,{HOST.CONN},{$REDISCLUSTERPORT}]</key>
                     <delay>5</delay>
                     <history>90</history>
                     <trends>365</trends>
@@ -846,7 +846,7 @@
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>rediscluster[cluster_stats_messages_sent,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}]</key>
+                    <key>rediscluster[cluster_stats_messages_sent,{HOST.CONN},{$REDISCLUSTERPORT}]</key>
                     <delay>5</delay>
                     <history>90</history>
                     <trends>365</trends>
@@ -889,7 +889,7 @@
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>rediscluster[connected,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}]</key>
+                    <key>rediscluster[connected,{HOST.CONN},{$REDISCLUSTERPORT}]</key>
                     <delay>5</delay>
                     <history>90</history>
                     <trends>365</trends>
@@ -932,7 +932,7 @@
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>rediscluster[cluster_stats_messages_received,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}]</key>
+                    <key>rediscluster[cluster_stats_messages_received,{HOST.CONN},{$REDISCLUSTERPORT}]</key>
                     <delay>5</delay>
                     <history>90</history>
                     <trends>365</trends>
@@ -975,7 +975,7 @@
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>rediscluster[cluster_state,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}]</key>
+                    <key>rediscluster[cluster_state,{HOST.CONN},{$REDISCLUSTERPORT}]</key>
                     <delay>5</delay>
                     <history>90</history>
                     <trends>365</trends>
@@ -1018,7 +1018,7 @@
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>rediscluster[cluster_slots_pfail,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}]</key>
+                    <key>rediscluster[cluster_slots_pfail,{HOST.CONN},{$REDISCLUSTERPORT}]</key>
                     <delay>5</delay>
                     <history>90</history>
                     <trends>365</trends>
@@ -1061,7 +1061,7 @@
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>rediscluster[iscluster,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}]</key>
+                    <key>rediscluster[iscluster,{HOST.CONN},{$REDISCLUSTERPORT}]</key>
                     <delay>5</delay>
                     <history>90</history>
                     <trends>365</trends>
@@ -1104,7 +1104,7 @@
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>rediscluster[ping,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}]</key>
+                    <key>rediscluster[ping,{HOST.CONN},{$REDISCLUSTERPORT}]</key>
                     <delay>5</delay>
                     <history>90</history>
                     <trends>365</trends>
@@ -1163,7 +1163,7 @@
     </templates>
     <triggers>
         <trigger>
-            <expression>{Template.Redis.Cluster:rediscluster[masternodes,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}].last()}=2</expression>
+            <expression>{Template.Redis.Cluster:rediscluster[masternodes,{HOST.CONN},{$REDISCLUSTERPORT}].last()}=2</expression>
             <name>{$OPR}.RedisCluster.MasterOnNode.TooMany</name>
             <url/>
             <status>0</status>
@@ -1175,7 +1175,7 @@
             <dependencies/>
         </trigger>
         <trigger>
-            <expression>{Template.Redis.Cluster:rediscluster[masternodes,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}].last()}=3</expression>
+            <expression>{Template.Redis.Cluster:rediscluster[masternodes,{HOST.CONN},{$REDISCLUSTERPORT}].last()}=3</expression>
             <name>{$OPR}.RedisCluster.MasterOnNode.TooMany</name>
             <url/>
             <status>0</status>
@@ -1187,7 +1187,7 @@
             <dependencies/>
         </trigger>
         <trigger>
-            <expression>({Template.Redis.Cluster:rediscluster[cluster_size,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}].last()}-{Template.Redis.Cluster:rediscluster[masternodes,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}].last()})=1</expression>
+            <expression>({Template.Redis.Cluster:rediscluster[cluster_size,{HOST.CONN},{$REDISCLUSTERPORT}].last()}-{Template.Redis.Cluster:rediscluster[masternodes,{HOST.CONN},{$REDISCLUSTERPORT}].last()})=1</expression>
             <name>{$OPR}.RedisCluster.MasterOnNode.TooMany2</name>
             <url/>
             <status>0</status>
@@ -1199,7 +1199,7 @@
             <dependencies/>
         </trigger>
         <trigger>
-            <expression>({Template.Redis.Cluster:rediscluster[cluster_size,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}].last()}-{Template.Redis.Cluster:rediscluster[masternodes,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}].last()})=0</expression>
+            <expression>({Template.Redis.Cluster:rediscluster[cluster_size,{HOST.CONN},{$REDISCLUSTERPORT}].last()}-{Template.Redis.Cluster:rediscluster[masternodes,{HOST.CONN},{$REDISCLUSTERPORT}].last()})=0</expression>
             <name>{$OPR}.RedisCluster.MasterOnNode.TooMany2</name>
             <url/>
             <status>0</status>
@@ -1211,7 +1211,7 @@
             <dependencies/>
         </trigger>
         <trigger>
-            <expression>{Template.Redis.Cluster:rediscluster[masterminslave,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}].last()}=0</expression>
+            <expression>{Template.Redis.Cluster:rediscluster[masterminslave,{HOST.CONN},{$REDISCLUSTERPORT}].last()}=0</expression>
             <name>{$OPR}.RedisCluster.MasterSlave.Count.TooLow</name>
             <url/>
             <status>0</status>
@@ -1223,7 +1223,7 @@
             <dependencies/>
         </trigger>
         <trigger>
-            <expression>{Template.Redis.Cluster:rediscluster[masterminslave,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}].last()}=1</expression>
+            <expression>{Template.Redis.Cluster:rediscluster[masterminslave,{HOST.CONN},{$REDISCLUSTERPORT}].last()}=1</expression>
             <name>{$OPR}.RedisCluster.MasterSlave.Count.TooLow</name>
             <url/>
             <status>0</status>
@@ -1235,7 +1235,7 @@
             <dependencies/>
         </trigger>
         <trigger>
-            <expression>{Template.Redis.Cluster:rediscluster[ping,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}].last()}=0</expression>
+            <expression>{Template.Redis.Cluster:rediscluster[ping,{HOST.CONN},{$REDISCLUSTERPORT}].last()}=0</expression>
             <name>{$OPR}.RedisCluster.NotPing</name>
             <url/>
             <status>0</status>
@@ -1247,7 +1247,7 @@
             <dependencies/>
         </trigger>
         <trigger>
-            <expression>{Template.Redis.Cluster:rediscluster[slave,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}].last()}&lt;6</expression>
+            <expression>{Template.Redis.Cluster:rediscluster[slave,{HOST.CONN},{$REDISCLUSTERPORT}].last()}&lt;6</expression>
             <name>{$OPR}.RedisCluster.Slaves.TooLow</name>
             <url/>
             <status>0</status>
@@ -1259,7 +1259,7 @@
             <dependencies/>
         </trigger>
         <trigger>
-            <expression>{Template.Redis.Cluster:rediscluster[cluster_state,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}].str(ok)}=0</expression>
+            <expression>{Template.Redis.Cluster:rediscluster[cluster_state,{HOST.CONN},{$REDISCLUSTERPORT}].str(ok)}=0</expression>
             <name>{$OPR}.RedisCluster.State.Fail</name>
             <url/>
             <status>0</status>
@@ -1299,7 +1299,7 @@
                     <type>0</type>
                     <item>
                         <host>Template.Redis.Cluster</host>
-                        <key>rediscluster[masternodes,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}]</key>
+                        <key>rediscluster[masternodes,{HOST.CONN},{$REDISCLUSTERPORT}]</key>
                     </item>
                 </graph_item>
             </graph_items>
@@ -1331,7 +1331,7 @@
                     <type>0</type>
                     <item>
                         <host>Template.Redis.Cluster</host>
-                        <key>rediscluster[master,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}]</key>
+                        <key>rediscluster[master,{HOST.CONN},{$REDISCLUSTERPORT}]</key>
                     </item>
                 </graph_item>
                 <graph_item>
@@ -1343,7 +1343,7 @@
                     <type>0</type>
                     <item>
                         <host>Template.Redis.Cluster</host>
-                        <key>rediscluster[masterfail,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}]</key>
+                        <key>rediscluster[masterfail,{HOST.CONN},{$REDISCLUSTERPORT}]</key>
                     </item>
                 </graph_item>
                 <graph_item>
@@ -1355,7 +1355,7 @@
                     <type>0</type>
                     <item>
                         <host>Template.Redis.Cluster</host>
-                        <key>rediscluster[masterpfail,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}]</key>
+                        <key>rediscluster[masterpfail,{HOST.CONN},{$REDISCLUSTERPORT}]</key>
                     </item>
                 </graph_item>
                 <graph_item>
@@ -1367,7 +1367,7 @@
                     <type>0</type>
                     <item>
                         <host>Template.Redis.Cluster</host>
-                        <key>rediscluster[masterminslave,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}]</key>
+                        <key>rediscluster[masterminslave,{HOST.CONN},{$REDISCLUSTERPORT}]</key>
                     </item>
                 </graph_item>
             </graph_items>
@@ -1399,7 +1399,7 @@
                     <type>0</type>
                     <item>
                         <host>Template.Redis.Cluster</host>
-                        <key>rediscluster[slave,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}]</key>
+                        <key>rediscluster[slave,{HOST.CONN},{$REDISCLUSTERPORT}]</key>
                     </item>
                 </graph_item>
                 <graph_item>
@@ -1411,7 +1411,7 @@
                     <type>0</type>
                     <item>
                         <host>Template.Redis.Cluster</host>
-                        <key>rediscluster[slavefail,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}]</key>
+                        <key>rediscluster[slavefail,{HOST.CONN},{$REDISCLUSTERPORT}]</key>
                     </item>
                 </graph_item>
                 <graph_item>
@@ -1423,7 +1423,7 @@
                     <type>0</type>
                     <item>
                         <host>Template.Redis.Cluster</host>
-                        <key>rediscluster[slavepfail,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}]</key>
+                        <key>rediscluster[slavepfail,{HOST.CONN},{$REDISCLUSTERPORT}]</key>
                     </item>
                 </graph_item>
                 <graph_item>
@@ -1435,7 +1435,7 @@
                     <type>0</type>
                     <item>
                         <host>Template.Redis.Cluster</host>
-                        <key>rediscluster[slavewithoutmaster,{$REDISCLUSTERHOST},{$REDISCLUSTERPORT}]</key>
+                        <key>rediscluster[slavewithoutmaster,{HOST.CONN},{$REDISCLUSTERPORT}]</key>
                     </item>
                 </graph_item>
             </graph_items>
