@@ -4,19 +4,33 @@ CONFDIR="/tmp/zabbix"
 CACHETIME="60"
 MD5SUM=$(which md5sum 2>/dev/null)
 REDISHOST=${2:-}
+REDISHOST=$(hostname -i)
 REDISPORT=${3:-}
 REDISURL="${REDISHOST}:${REDISPORT}"
 REDISHOSTS=()
 flagCluster=1
-DEBUG=0
+#DEBUG=0
+MASTERHOST="${REDISHOST}"
+
+if [ "$(id -u)" -eq "0" ]; then 
+	DEBUG=0 
+	DEBUGFILE=$(mktemp)
+fi 
+
+[ -f /etc/zabbix/bin/redis.secret ] && . /etc/zabbix/bin/redis.secret
 
 debug() {
-	[ "${DEBUG}" == "1" ] && printf "[%s] %s\n" "$(date)" "$*"
+	[ -n "${DEBUG}" ] && printf "[%s] (%s) %s\n" "$(date +%Y-%m-%d" "%H:%M:%S)" "${FUNCNAME[1]}" "$*" >>"${DEBUGFILE}"
 }
 
 # Функция заглушка для заббикса
 zbx() {
 	printf "ZBX_NOTSUPPORTED"
+	exit 1
+}
+
+zbx_err() {
+	printf "ZBX_ERROR"
 	exit 1
 }
 
@@ -59,7 +73,7 @@ checkForCluster() {
 	local iscluster
 	debug "checkForCluster $REDISHOST $REDISPORT"
 	#iscluster=$(docker exec $(docker ps -qlf {name=redis*}) redis-cli -h ${REDISHOST} -p ${REDISPORT} cluster info | grep -c 'ERR')
-	iscluster=$(redis-cli -h ${REDISHOST} -p ${REDISPORT} cluster info | grep -c 'ERR')
+	iscluster=$(timeout 2 redis-cli -h ${REDISHOST} -p ${REDISPORT} ${REDISPASS} cluster info | grep -c 'ERR')
 	debug "iscluster = ${iscluster}"
 
 	if [ "${iscluster}" -eq "0" ];then
@@ -75,7 +89,7 @@ getClusterNodes() {
 	if isCluster; then
 		unset REDISHOSTS
 		#mapfile -t clusterNodes < <(docker exec $(docker ps -qlf {name=redis*}) redis-cli -h "${REDISHOST}" -p "${REDISPORT}" cluster nodes 2>/dev/null| tr " " "|")
-		mapfile -t clusterNodes < <(redis-cli -h "${REDISHOST}" -p "${REDISPORT}" cluster nodes 2>/dev/null| tr " " "|")
+		mapfile -t clusterNodes < <(timeout 2 redis-cli -h "${REDISHOST}" -p "${REDISPORT}" ${REDISPASS} cluster nodes 2>/dev/null| tr " " "|")
 		for line in ${clusterNodes[@]}; do 
 			line=$(printf "${line}" | cut -d"|" -f2)
 			local h=${line%:*}
@@ -93,7 +107,7 @@ getClusterInfo() {
 	[ -z "${param}" ] && return 1
 	if isCluster; then
 		#local CLUSTERINFO=$(docker exec $(docker ps -qlf {name=redis*}) redis-cli -h "${REDISHOST}" -p "${REDISPORT}" cluster info 2>/dev/null | grep -oP "${param}:\K.*")
-		local CLUSTERINFO=$(redis-cli -h "${REDISHOST}" -p "${REDISPORT}" cluster info 2>/dev/null | grep -oP "${param}:\K.*")
+		local CLUSTERINFO=$(timeout 2 redis-cli -h "${REDISHOST}" -p "${REDISPORT}" ${REDISPASS} cluster info 2>/dev/null | grep -oP "${param}:\K.*")
 		debug "getClusterInfo: ${CLUSTERINFO}"
 		[ -n "${CLUSTERINFO}" ] && echo "${CLUSTERINFO}" || zbx
 	fi
@@ -112,7 +126,7 @@ doPing() {
 	debug "doPing $redishost $redisport"
 	local ping
 	#ping=$(docker exec $(docker ps -qlf {name=redis*}) redis-cli -h "${redishost}" -p "${redisport}" ping 2>/dev/null | grep -c 'PONG')
-	ping=$(redis-cli -h "${redishost}" -p "${redisport}" ping 2>/dev/null | grep -c 'PONG')
+	ping=$(timeout 2 redis-cli -h "${redishost}" -p "${redisport}" ${REDISPASS} ping 2>/dev/null | grep -c 'PONG')
 	if [ "${ping}" == "1" ]; then
 		return 0
 	fi
@@ -123,6 +137,7 @@ doPing() {
 getPing() {
 	debug "getPing"
 	local host
+	doPing ${REDISHOST} ${REDISPORT} && return 0
 	for host in "${REDISHOSTS[@]}"; do 
 		local h=${host%:*}
 		local p=${host#*:}
@@ -190,10 +205,12 @@ getMasterMinSlave() {
 }
 
 getMasterNodes() {
-	printf '%s\n' "${clusterNodes[@]}" | awk -F"|" '$3~/master/ && $3!~/fail/{sub(/:.*/,"",$2);master[$2]++}END{max=0; for(m in master){max=(max<master[m]?master[m]:max)} print max}'
+	printf '%s\n' "${clusterNodes[@]}" | awk -F"|" '$2~/'"${MASTERHOST}"'/ && $3~/master/ && $3!~/fail/{sub(/:.*/,"",$2);master[$2]++}END{max=0; for(m in master){max=(max<master[m]?master[m]:max)} print max}'
 }
 
-[ -z "${REDISURL}" ] && exit 1
+[ -z "${REDISHOST}" ] && zbx_err
+[ -z "${REDISPORT}" ] && zbx_err
+[ -z "${REDISURL}" ] && zbx_err
 
 [ ! -d "${CONFDIR}" ] && mkdir -p "${CONFDIR}"
 
