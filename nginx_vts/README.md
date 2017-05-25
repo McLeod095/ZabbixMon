@@ -6,7 +6,7 @@
 with module [nginx-module-vts](https://github.com/vozlt/nginx-module-vts)
 
 ## Edit nginx.conf 
-`
+```
 http {
  	vhost_traffic_status_zone;
  	...;
@@ -23,9 +23,9 @@ http {
                 vhost_traffic_status_display_format html;
                 access_log off;
         }
-	}
+    }
 }
-`
+```
 
 ## Build app
 
