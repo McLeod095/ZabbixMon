@@ -14,7 +14,7 @@ http {
         listen *:8899;
         server_name stub.example.com;
 
-        location / {q
+        location / {
                 stub_status on;
                 access_log off;
         }
